@@ -2,7 +2,7 @@ import { IChat } from "../models/types";
 
 export interface IChatListItemProps {
   chat: IChat
-  handleSelectChat: (chat: IChat) => void
+  onClickChat: (chat: IChat) => void
   unreadNum: number
   selectedChatId: string
 }
@@ -11,11 +11,11 @@ export interface IChatListItemProps {
  * ChatListItem, which contains contact avatar, unread number, contact name and last message
  */
 function ChatListItem(props: IChatListItemProps) {
-  const { chat, handleSelectChat, unreadNum, selectedChatId } = props;
+  const { chat, onClickChat, unreadNum, selectedChatId } = props;
 
   return (
     <div className="chat-list-item"
-      onClick={() => handleSelectChat(chat)}>
+      onClick={() => onClickChat(chat)}>
       <div className="avatar-container">
         <img className="avatar-img" src={chat.avatarUrl} />
         {unreadNum > 0 && chat._id !== selectedChatId && <div className="unread-badge">{unreadNum}</div>}

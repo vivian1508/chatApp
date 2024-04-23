@@ -64,15 +64,11 @@ const resolvers = {
         const insertedMessage = {
           ...newMessage, _id: insert.insertedId
         }
-        console.log("save to database success")
         pubsub.publish("newMessageAdded", {
           newMessageAdded: { ...insertedMessage }
         });
-        console.log("publish new message", insertedMessage)
-
         return insertedMessage;
       }
-      //   toEmail, createTime, lastUpdateTime, _id: insert.insertedId};
       return null;
     },
   },

@@ -49,12 +49,6 @@ function ChatPane(props: IChatPaneProps) {
     return () => unsubscribe();
   }, [chat._id])
 
-  if (!chat) {
-    return (
-      <div>{WELCOME_MESSAGE}</div>
-    )
-  }
-
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 

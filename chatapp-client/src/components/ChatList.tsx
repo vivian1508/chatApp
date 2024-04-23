@@ -10,19 +10,19 @@ import { CHAT_LIST_LOADING } from "../utils/constants";
  * ChatList to display all chats
  */
 export interface IChatListProps {
-  setSelectedChat: (chat: IChat) => void
+  handleSelectChat: (chat: IChat) => void
 }
 
 function ChatList(props: IChatListProps) {
-  const { setSelectedChat } = props;
+  const { handleSelectChat } = props;
   const [unreadCounts, setUnreadCounts] = useState({});
   const [selectedChatId, setSelectedChatId] = useState("");
 
   // Todo: query chats by login user id
   const { loading, error, data, subscribeToMore } = useQuery(CHAT_QUERY)
 
-  const handleSelectChat = useCallback((chat: IChat) => {
-    setSelectedChat(chat);
+  const onClickChat = useCallback((chat: IChat) => {
+    handleSelectChat(chat);
     setUnreadCounts({ ...unreadCounts, [chat._id]: 0 });
     setSelectedChatId(chat._id);
   }, [])
@@ -88,7 +88,7 @@ function ChatList(props: IChatListProps) {
               <ChatListItem
                 key={chat._id}
                 chat={chat}
-                handleSelectChat={handleSelectChat}
+                onClickChat={onClickChat}
                 unreadNum={unreadCounts[chat._id]}
                 selectedChatId={selectedChatId} />
             )
