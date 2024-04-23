@@ -4,8 +4,8 @@
   //background-color: #f0f0f0;
   overflow-y: auto;
 
-  background: $note-sidebar-color;
-  border-right: 1px solid darken($note-sidebar-color, 10%);
+  background: $sidebar-color;
+  border-right: 1px solid darken($sidebar-color, 10%);
   height: 100%;
 
   &:hover {
@@ -16,18 +16,18 @@
     display: flex;
     cursor: pointer;
     padding: 0.5rem;
-    border-bottom: 1px solid darken($note-sidebar-color, 8%);
+    border-bottom: 1px solid darken($sidebar-color, 8%);
     font-weight: 500;
     font-size: 0.85rem;
     line-height: 1.3;
 
     &:hover {
-      background: darken($note-sidebar-color, 5%);
+      background: darken($sidebar-color, 5%);
 
     }
 
     &.selected {
-      background: darken($note-sidebar-color, 5%);
+      background: darken($sidebar-color, 5%);
     }
 
     .chat-list-message {
