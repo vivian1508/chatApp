@@ -1,30 +1,34 @@
-import {useEffect} from "react";
+import { useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
-import { CreateMessageMutation } from "../graphql/mutation/message.mutation";
-import { NEW_MESSAGE_SUBSCRIPTION } from "../graphql/subscription/message.subscription";
+import { CREATE_MESSAGE_MUTATION } from "../graphql/mutation.graphql";
+import { NEW_MESSAGE_SUBSCRIPTION } from "../graphql/subscription.graphql";
 
-import { MessagesByChatIdQuery } from "../graphql/query/message.query";
+import { MESSAGES_BY_CHAT_ID_QUERY } from "../graphql/query.graphql";
 import MessagePane from "./MessagePane";
 import MessageEditor from "./MessageEditor";
-import { IChat, IMessage } from "../models/chat";
+import { IChat, IMessage } from "../models/types";
+import { WELCOME_MESSAGE } from "../utils/constants";
 
 export interface IChatPaneProps {
   chat: IChat
   loginId: string
 }
 
+/**
+ * ChatPane which displays messages and message editor
+ */
 function ChatPane(props: IChatPaneProps) {
-  const {chat, loginId} = props;
+  const { chat, loginId } = props;
 
-  const { loading, error, data, subscribeToMore } = useQuery(MessagesByChatIdQuery, {
-    variables: {chatId: (chat && chat._id) || ""},
+  const { loading, error, data, subscribeToMore } = useQuery(MESSAGES_BY_CHAT_ID_QUERY, {
+    variables: { chatId: (chat && chat._id) || "" },
     skip: !chat
   });
 
-  const [sendMessage] = useMutation(CreateMessageMutation, {
+  const [sendMessage] = useMutation(CREATE_MESSAGE_MUTATION, {
     refetchQueries: [
-      MessagesByChatIdQuery, // DocumentNode object parsed with gql
-      'messagesByChatId' // Query name
+      MESSAGES_BY_CHAT_ID_QUERY, 
+      'messagesByChatId' 
     ],
   })
 
@@ -35,23 +39,21 @@ function ChatPane(props: IChatPaneProps) {
       updateQuery: (prev, { subscriptionData }) => {
         if (!subscriptionData.data) return prev;
         const newFeedItem = subscriptionData.data.newMessageAdded;
-        if(prev && prev.messagesByChatId && 
-            prev.messagesByChatId.find((message: IMessage) => message._id === newFeedItem._id)) {
-              return prev;
-            }
-        return {...prev, messagesByChatId: [...prev.messagesByChatId, newFeedItem]};
+        if (prev && prev.messagesByChatId &&
+          prev.messagesByChatId.find((message: IMessage) => message._id === newFeedItem._id)) {
+          return prev;
+        }
+        return { ...prev, messagesByChatId: [...prev.messagesByChatId, newFeedItem] };
       }
     });
     return () => unsubscribe();
-  },[chat._id])
+  }, [chat._id])
 
-  if(!chat) {
+  if (!chat) {
     return (
-      <div>
-       Click on one chat to start messaging
-      </div>
+      <div>{WELCOME_MESSAGE}</div>
     )
-  } 
+  }
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
@@ -60,8 +62,8 @@ function ChatPane(props: IChatPaneProps) {
 
   return (
     <div className="chat-pane">
-      <MessagePane messages={messages} loginId={loginId}/>
-      <MessageEditor chatId={chat._id} sendMessage={sendMessage} loginId={loginId}/>
+      <MessagePane messages={messages} loginId={loginId} />
+      <MessageEditor chatId={chat._id} sendMessage={sendMessage} loginId={loginId} />
     </div>
   )
 }

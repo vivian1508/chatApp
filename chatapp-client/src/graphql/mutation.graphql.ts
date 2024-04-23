@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const CreateMessageMutation = gql`
+export const CREATE_MESSAGE_MUTATION = gql`
   mutation($text: String!, $chatId: ID!, $creatorId: ID!, $createTime:String!, $lastUpdateTime:String!) {
     createMessage(text: $text, chatId: $chatId, creatorId: $creatorId, createTime: $createTime, lastUpdateTime:$lastUpdateTime) {
       _id

@@ -1,7 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
-// import './index.css'
 import './styles/index.scss'
 import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, split} from '@apollo/client';
 import { GraphQLWsLink } from '@apollo/client/link/subscriptions';
@@ -35,7 +34,6 @@ const splitLink = split(
 
 const client = new ApolloClient({
   link: splitLink,
-  //uri: "http://localhost:5050/graphql",
   cache: new InMemoryCache(),
 });
 

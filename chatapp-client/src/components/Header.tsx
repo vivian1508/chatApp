@@ -1,5 +1,13 @@
 
-function Header({ title, avatarUrl }) {
+export interface IHeaderProps {
+  title: string
+  avatarUrl: string
+}
+
+/**
+ * ChatApp Header
+ */
+function Header({ title, avatarUrl }: IHeaderProps) {
   return (
     <header className="app-header">
       <div className="header-content">

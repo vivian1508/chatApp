@@ -1,13 +1,15 @@
-import { IChat } from "../models/chat";
+import { IChat } from "../models/types";
 
 export interface IChatListItemProps {
-  //Todo: add type
   chat: IChat
   handleSelectChat: (chat: IChat) => void
   unreadNum: number
   selectedChatId: string
 }
 
+/**
+ * ChatListItem, which contains contact avatar, unread number, contact name and last message
+ */
 function ChatListItem(props: IChatListItemProps) {
   const { chat, handleSelectChat, unreadNum, selectedChatId } = props;
 

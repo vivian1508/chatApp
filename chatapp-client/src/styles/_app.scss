@@ -1,31 +1,31 @@
 .app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.app-header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  font-size: 10px;
+
+  .header-content {
     display: flex;
-    flex-direction: column;
-    height: 100vh;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  .app-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-    text-align: center;
-    font-size: 10px;
-
-    .header-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    
-    .avatar {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
   }
+}
 
-  .container {
-    display: flex;
-    flex: 1;
-  }
+.container {
+  display: flex;
+  flex: 1;
+}

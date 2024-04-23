@@ -1,5 +1,5 @@
 export interface IChat {
-  _id: string 
+  _id: string
   name: string
   avatarUrl: string;
   lastMessage: IMessage
@@ -11,7 +11,7 @@ export interface IMessage {
   text: string
   creator: IUser
   createTime?: string
-  chatId? : string
+  chatId?: string
   creatorId?: string
 }
 

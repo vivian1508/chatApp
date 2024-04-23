@@ -1,10 +1,7 @@
 import express from "express";
 import cors from "cors";
-import comments from "../routes/comments.js";
-
 import gql from "graphql-tag";
 import { ApolloServer } from '@apollo/server';
-import { buildSubgraphSchema } from '@apollo/subgraph';
 import { expressMiddleware } from '@apollo/server/express4';
 import resolvers from "./resolvers.js";
 import { readFileSync } from "fs";
@@ -25,8 +22,6 @@ const typeDefs = gql(
 const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 const app = express();
-// app.use(cors());
-// app.use(express.json());
 
 // This `app` is the returned value from `express()`.
 const httpServer = createServer(app);
@@ -62,18 +57,12 @@ const server = new ApolloServer({
 // instance before passing the instance to `expressMiddleware`
 await server.start();
 
-app.use("/comments", comments);
 app.use(
   '/graphql',
   cors(),
   express.json(),
   expressMiddleware(server),
 );
-
-// // start the Express server
-// app.listen(PORT, () => {
-//   console.log(`Server listening on port ${PORT}`);
-// });
 
 // Now that our HTTP server is fully set up, we can listen to it.
 httpServer.listen(PORT, () => {
